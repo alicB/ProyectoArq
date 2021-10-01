@@ -1,0 +1,52 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+publish_mode: editorial_workflow
+media_folder: static/images
+public_folder: images
+collections:
+  - name: "artistas"
+    label: "Artistas"
+    folder: "content/artistas"
+    create: true
+    fields:
+      - {label: "Id", name: "id", widget: "hidden", default: "artista_{{hour}}{{minute}}{{second}}"}
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Nationality", name: "nationality", widget: "string"}
+      - {label: "Birth_year", name: "birth_year", widget: "number"}
+      - {label: "Estilos", name: "estilos", widget: "select", multiple: true,
+         options: ["Jazz", "Rock", "Rhythm and Blues (R&B)","Post-bop" , "Latin jazz"
+          "Rock and Roll", "Funk" , "Hard bop" , "Funky jazz" , "Pianista de Jazz" ,"Pop"]}
+      - {label: "Image", name: "image", widget: "image",
+           media_folder: '/static/images/authors'}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "discograficas"
+    label: "Discograficas"
+    folder: "content/discograficas"
+    create: true
+    fields:
+      - {label: "Id", name: "id", widget: "hidden", default: "discografica_{{hour}}{{minute}}{{second}}"}
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Country", name: "country", widget: "string"}
+      - {label: "Founded", name: "founded", widget: "number"}
+      - {label: "Image", name: "image", widget: "image",
+           media_folder: '/static/images/discograficas'}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "album"
+    label: "Álbumes"
+    folder: "content/album"
+    create: true
+    fields:
+      - {label: "Id", name: "id", widget: "hidden", default: "album_{{hour}}{{minute}}{{second}}"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Copyright", name: "copyright", widget: "string"}
+      - {label: "Duracion", name: "duracion", widget: "string"}
+      - {label: "Artista", name: "artistaId", widget: "relation",
+          collection: "artistas", search_fields: ["name"], value_field: "id",
+          display_fields: ["name"]}
+      - {label: "Discografica", name: "discograficaId", widget: "relation",
+          collection: "discograficas", search_fields: ["name"], value_field: "id",
+          display_fields: ["name"]}
+      - {label: "Image", name: "image", widget: "image",
+           media_folder: '/static/images/album'}
+      - {label: "Body", name: "body", widget: "markdown"}
